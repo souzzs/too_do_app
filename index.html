@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Pro</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <header class="header">
+        <div class="header-content">
+            <h1 id="app-title">Meu Dia</h1>
+            <p id="current-date"></p>
+        </div>
+        <div class="task-count" id="task-count">0 tarefas</div>
+    </header>
+
+    <main class="container">
+        <div class="input-card">
+            <input type="text" id="taskInput" placeholder="Adicionar uma tarefa..." autocomplete="off">
+            <select id="priorityInput">
+                <option value="baixa">Baixa</option>
+                <option value="media">Média</option>
+                <option value="alta">Alta</option>
+            </select>
+            <button id="addBtn">Adicionar</button>
+        </div>
+
+        <ul id="taskList" class="task-list">
+            </ul>
+    </main>
+</div>
+
+<script>
+
+   const taskInput = document.getElementById('taskInput');
+const priorityInput = document.getElementById('priorityInput');
+const addBtn = document.getElementById('addBtn');
+const taskList = document.getElementById('taskList');
+const taskCountLabel = document.getElementById('task-count');
+
+// Atualiza a data no header
+const options = { weekday: 'long', day: 'numeric', month: 'long' };
+document.getElementById('current-date').innerText = new Date().toLocaleDateString('pt-BR', options);
+
+function updateCount() {
+    const activeTasks = document.querySelectorAll('.task-item:not(.completed)').length;
+    taskCountLabel.innerText = `${activeTasks} tarefa(s) pendente(s)`;
+}
+
+function addTask() {
+    const text = taskInput.value.trim();
+    const priority = priorityInput.value;
+
+    if (text === "") {
+        alert("Por favor, descreva a tarefa.");
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.className = `task-item p-${priority}`;
+
+    li.innerHTML = `
+        <div class="task-info">
+            <input type="checkbox" class="task-checkbox">
+            <span class="task-text">${text}</span>
+        </div>
+        <button class="delete-btn">&times;</button>
+    `;
+
+    // Evento para completar tarefa
+    const checkbox = li.querySelector('.task-checkbox');
+    checkbox.addEventListener('change', () => {
+        li.classList.toggle('completed');
+        updateCount();
+    });
+
+    // Evento para deletar tarefa
+    const deleteBtn = li.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', () => {
+        li.remove();
+        updateCount();
+    });
+
+    taskList.appendChild(li);
+    taskInput.value = "";
+    taskInput.focus();
+    updateCount();
+}
+
+// Eventos de clique e teclado
+addBtn.addEventListener('click', addTask);
+taskInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTask();
+});
+
+</script>
+</body>
+</html>

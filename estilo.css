@@ -1,0 +1,117 @@
+:root {
+    --primary: #2564cf;
+    --bg-app: #f4f6f8;
+    --card-bg: #ffffff;
+    --low: #28a745;
+    --medium: #ffc107;
+    --high: #d13438;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-app);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.app-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 25px;
+}
+
+.header h1 { color: var(--primary); margin: 0; font-weight: 600; }
+.header p { color: #605e5c; margin: 4px 0 0 0; font-size: 14px; }
+.task-count { font-size: 12px; color: var(--primary); font-weight: bold; }
+
+/* Input Card */
+.input-card {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    flex: 2;
+    border: 1px solid #edebe9;
+    padding: 12px;
+    border-radius: 4px;
+    outline: none;
+}
+
+select {
+    flex: 1;
+    border: 1px solid #edebe9;
+    background: #faf9f8;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button#addBtn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+button#addBtn:hover { filter: brightness(1.1); }
+
+/* Task Items */
+.task-list { list-style: none; padding: 0; }
+
+.task-item {
+    background: var(--card-bg);
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-left: 4px solid transparent;
+    transition: all 0.2s;
+}
+
+/* Priority Indicators */
+.p-baixa { border-left-color: var(--low); }
+.p-media { border-left-color: var(--medium); }
+.p-alta  { border-left-color: var(--high); }
+
+.task-info { display: flex; align-items: center; gap: 15px; }
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 50%; /* Estilo Microsoft */
+}
+
+/* Task Completed Style */
+.completed { opacity: 0.6; background-color: #f3f2f1; }
+.completed .task-text { text-decoration: line-through; color: #a19f9d; }
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #a19f9d;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.delete-btn:hover { color: var(--high); }
